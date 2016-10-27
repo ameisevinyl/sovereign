@@ -3,6 +3,8 @@
 Vagrant.configure('2') do |config|
   config.vm.hostname = 'sovereign.local'
   config.vm.network 'private_network', ip: '172.16.100.2'
+  
+  config.vm.provision "shell", inline: "sudo apt-get install -y aptitude python"
 
   config.vm.provision :ansible do |ansible|
     ansible.playbook = 'site.yml'
