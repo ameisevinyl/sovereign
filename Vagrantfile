@@ -7,9 +7,9 @@ Vagrant.configure('2') do |config|
   config.vm.provision :ansible do |ansible|
     ansible.playbook = 'site.yml'
     ansible.host_key_checking = false
-    ansible.extra_vars = { ansible_ssh_user: 'vagrant', testing: true }
+    ansible.extra_vars = { ansible_ssh_user: 'ubuntu', testing: true }
     ansible.groups = {
-      "testing" => ["jessie"]
+      "testing" => ["xenial"]
     }
 
     # ansible.tags = ['blog']
@@ -34,13 +34,8 @@ Vagrant.configure('2') do |config|
     config.cache.scope = :box
   end
 
-  # Debian 8 64-bit (officially supported)
-  config.vm.define 'jessie', primary: true do |jessie|
-    jessie.vm.box = 'box-cutter/debian81'
-  end
-
   # Ubuntu 16.04 (LTS) 64-bit (currently unavailable)
-  config.vm.define 'xenial', autostart: false do |xenial|
-    xenial.vm.box = 'box-cutter/ubuntu1604'
+  config.vm.define 'xenial', primary: true do |xenial|
+    xenial.vm.box = 'ubuntu/xenial64'
   end
 end
